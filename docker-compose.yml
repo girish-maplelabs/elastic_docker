@@ -1,0 +1,33 @@
+version: '3'
+services:
+    databases:
+        image: es_image
+        ports:
+            - "9200:9200"
+        environment:
+            - CLUSTER_NAME=es_test
+            - NODE_MASTER=true
+            - NODE_DATA=true
+            - NODE_NAME=giri
+            - NODE_INGEST=true
+            - MAX_LOCAL_STORAGE_NODES=4
+            - NETWORK_HOST=0.0.0.0
+            - HTTP_ENABLE=true
+            - HTTP_CORS_ENABLE=true
+            - HTTP_CORS_ALLOW_ORIGIN=true
+            - NUMBER_OF_MASTERS=1
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        cap_add:
+            - IPC_LOCK
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+          nofile:
+            soft: 65536
+            hard: 65536
+#        volumes:
+#            - esdata1:/usr/share/elasticsearch/girish
+#volumes:
+#  esdata1:
+#    driver: local
